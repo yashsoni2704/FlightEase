@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Flight - FlightEase</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">FlightEase</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="flights.html">Flights</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="booking.html">Book Now</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2>Book Your Flight</h2>
+        <form action="backend/process_booking.php" method="POST">
+            <input type="hidden" name="flight_id" id="flight_id">
+            
+            <div class="mb-3">
+                <label for="passenger_name" class="form-label">Passenger Name</label>
+                <input type="text" class="form-control" id="passenger_name" name="passenger_name" required>
+            </div>
+            
+            <div class="mb-3">
+                <label for="seat_number" class="form-label">Seat Number</label>
+                <select class="form-control" id="seat_number" name="seat_number" required>
+                    <!-- Seats will be loaded dynamically -->
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Proceed to Payment</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Get flight_id from URL parameters
+        const urlParams = new URLSearchParams(window.location.search);
+        const flightId = urlParams.get('flight_id');
+        document.getElementById('flight_id').value = flightId;
+
+        // Load available seats
+        const seatSelect = document.getElementById('seat_number');
+        for(let i = 1; i <= 50; i++) {
+            const option = document.createElement('option');
+            option.value = i;
+            option.textContent = `Seat ${i}`;
+            seatSelect.appendChild(option);
+        }
+    </script>
+</body>
+</html>
